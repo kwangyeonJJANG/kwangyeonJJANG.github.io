@@ -55,6 +55,13 @@ window.addEventListener('load', function() {
     window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
   }
   startApp();
+  
+});
+function startApp() {
+  simpleStorageContract = web3.eth.contract(abi);
+  //var simplestorageContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"getBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"}]);
+  simpleStorage = simpleStorageContract.at(contractAddress);
+  // simpleStorage = simplestorage2;
   var filter = web3.eth.filter({fromBlock:0, toBlock:'latest', address: "0xcc2c5e67c62b1a4e19c45de22dc2125af6133364"});
   filter.get(function (err, transactions) {
     transactions.forEach(function (tx) {
@@ -66,17 +73,11 @@ window.addEventListener('load', function() {
       */
     });
   });
-});
-function startApp() {
-  simpleStorageContract = web3.eth.contract(abi);
-  //var simplestorageContract = web3.eth.contract([{"constant":true,"inputs":[],"name":"getBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function"}]);
-  simpleStorage = simpleStorageContract.at(contractAddress);
-  // simpleStorage = simplestorage2;
-  document.getElementById('contractAddr').innerHTML = getLink(contractAddress);
-  web3.eth.getAccounts(function(e,r){
-    document.getElementById('accountAddr').innerHTML = getLink(r[0]);
-  });
-  getValue();
+  // document.getElementById('contractAddr').innerHTML = getLink(contractAddress);
+  // web3.eth.getAccounts(function(e,r){
+  //   document.getElementById('accountAddr').innerHTML = getLink(r[0]);
+  // });
+  // getValue();
 }
 function getLink(addr) {
   return '<a target="_blank" href=https://testnet.etherscan.io/address/' + addr + '>' + addr +'</a>';
